@@ -1,37 +1,61 @@
 <!DOCTYPE html>
+<!--Deffine el tipo de documento como HTML5-->
 <html lang="en">
+<!--Inicia el documento HTML y establece el idioma español-->
 <head>
     <meta charset="UTF-8">
+    <!--Especifica la codificacion de caracteres a UTF- , para soportar caracteres-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--Ajusta la visualizacion para que sea adecuada en diferentes dispositivos -->
     <link rel="stylesheet" href="./styles.css">
     <title>Document</title>
+    <!--TItulo de la pagina que aparece en la pestaña del navegador-->
 </head>
 <body>
+    <!--Inicio del cuerpo de la página-->
     <div class="calculator0">
+        <!--COntenedor principal de la calculadora, con la clase "calculator"-->
         <input type="text" id="display" class="calculator-screen" value="" disabled>
-        
+        <!--Campo de texto que muestra los numero sy resultados, con el id "diaplay "-->
         <div class="calculator-buttons">
+            <!--Contenedor para los botones de la calculadora -->
             <button class="button" onclick="clearDisplay()">C</button>
+            <!--Botón para limpiar el display, que llama a la función clearDisplay()-->
             <button class="button" onclick="deleteLast()">DEL</button>
+            <!--Botón para borra el último carácter, que llama a la función deleteLast()-->
             <button class="button" onclick="appendToDisplay('/')">/</button>
+            <!--Botón para añadir la operación de división ("/") al display-->
             <button class="button" onclick="appendToDisplay('*')">*</button>
+            <!--Botón para añadir la operación de multiplicación ("*") al display -->
 
             <button class="button" onclick="appendToDisplay('7')">7</button>
+            <!--Botón para añadir el número "7" al display-->
             <button class="button" onclick="appendToDisplay('8')">8</button>
+            <!--Botón para añadir el número "8" al display-->
             <button class="button" onclick="appendToDisplay('9')">9</button>
+            <!--Botón para añadir el número "9" al display-->
             <button class="button" onclick="appendToDisplay('-')">-</button>
+            <!--Botón para añadir la operación de resta ("-") al display -->
 
             <button class="button" onclick="appendToDisplay('4')">4</button>
+            <!--Botón para añadir el número "4" al display-->
             <button class="button" onclick="appendToDisplay('5')">5</button>
+            <!--Botón para añadir el número "5" al display-->
             <button class="button" onclick="appendToDisplay('6')">6</button>
+            <!--Botón para añadir el número "6" al display-->
             <button class="button" onclick="appendToDisplay('+')">+</button>
+            <!--Botón para añadir la operación de suma ("+") al display -->
 
             <button class="button" onclick="appendToDisplay('1')">1</button>
+            <!--Botón para añadir el número "1" al display-->
             <button class="button" onclick="appendToDisplay('2')">2</button>
+            <!--Botón para añadir el número "2" al display-->
             <button class="button" onclick="appendToDisplay('3')">3</button>
+            <!--Botón para añadir el número "3" al display-->
             <button class="button equal-button" onclick="calculateResult()">=</button>
 
             <button class="button" onclick="appendToDisplay('0')">0</button>
+            <!--Botón para añadir el número "0" al display-->
             <button class="button" onclick="appendToDisplay('.')">.</button>
 
             
