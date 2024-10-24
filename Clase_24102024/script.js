@@ -19,9 +19,9 @@ let tabla =[];
 for(i=0; i<10; i++){
     if(tabla.length <6){
         tabla.push("El resultado de 5X"+i+ " = " +5*i)
-        console.log(tabla)
+        
     }
-    
+    console.log(tabla)
 }
 console.log("El array tiene "+tabla.length) 
 
