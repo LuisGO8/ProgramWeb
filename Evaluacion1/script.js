@@ -1,212 +1,113 @@
-document.title="Evaluacion";
+document.title = "Evaluacion";
 console.log(document.title);
 //------------------------------------------------------
 
-//crear el contenedor prinicpal para el formulario
-const container= document.createElement("div");
-container.style.margin="20px";
+// Crear el contenedor principal para el formulario
+const container = document.createElement("div");
+container.style.margin = "20px";
 
-
-//Titulo de la pagina 
-const title=document.createElement("h2");
-title.textContent="Evaluación";
+// Titulo de la página
+const title = document.createElement("h2");
+title.textContent = "Evaluación";
 container.appendChild(title);
 
-//Para el formulario
-const form=document.createElement("form");
+// Para el formulario
+const form = document.createElement("form");
+form.method = "post";
 
+// INPUT nombre de usuario
+const nombre = document.createElement("input");
+nombre.placeholder = "Nombre de usuari@";
+nombre.type = "text";
+nombre.required = true;
+form.appendChild(nombre);
 
-//INPUT nombre de usuario
-const usernameInput=document.createElement("input");
-usernameInput.placeholder="Nombre de usuari@";
-usernameInput.type="text";
-usernameInput.required=true;
-form.appendChild(usernameInput);
-
-//INPUT de ocupación
-const ocupacion=document.createElement("input");
-ocupacion.placeholder="Ocupación"
-ocupacion.type="text";
-ocupacion.required=true;
+// INPUT de ocupación
+const ocupacion = document.createElement("input");
+ocupacion.placeholder = "Ocupación";
+ocupacion.type = "text";
+ocupacion.required = true;
 form.appendChild(ocupacion);
 
-
-//INPUT para cambiar el color
-const color=document.createElement("input");
-color.type="color";
-color.required=true;
+// INPUT para cambiar el color
+const color = document.createElement("input");
+color.type = "color";
+color.required = true;
 form.appendChild(color);
 
-
-//crear el boton de agregar
-const submitButton=document.createElement("button");
-submitButton.textContent="Agregar";
+// Crear el botón de agregar
+const submitButton = document.createElement("button");
+submitButton.textContent = "Agregar";
 form.appendChild(submitButton);
 
+let tarjetas = [];  // Usar 'let' para poder modificar el array
 
+// Crear el contenedor de tarjetas y aplicar Flexbox
+const cardContainer = document.createElement('div');
+cardContainer.id = 'tarjetas'; // Asignamos el id
+cardContainer.style.display = "flex";   // Hacer que el contenedor use Flexbox
+cardContainer.style.flexWrap = "wrap"; // Permitir que las tarjetas se acomoden en múltiples filas
+cardContainer.style.justifyContent = "flex-start"; // Alineación de las tarjetas al inicio
+container.appendChild(cardContainer);
 
-
-
-
-
-
-
-
-
-//mensaje de respuesta
-const message=document.createElement("p");
-container.appendChild(form);
-container.appendChild(message);
-
-//agregar el contenido al cuerpo
-document.body.appendChild(container);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//datos de inicio de sesion predefinida
-const validaUser="Juanito";
-const validaPassword="2589";
-
-//validar el nombre del user y el password
-form.addEventListener("submit", (event)=>{
+// Manejo del formulario
+form.addEventListener("submit", (event) => {
     event.preventDefault();
+    const nom = nombre.value;
+    const ocu = ocupacion.value;
+    const col = color.value;
 
-//validar lo que traiga de submit
-if(usernameInput.value===validaUser && passwordInput.value===validaPassword){
-    message.textContent="Bienvenido";//establece el mensaje
-    message.style.color="green";//cambia el color del mensaje
-
-}else{
-    message.textContent = 'Nombre de usuario o contraseña';
-    message.style.color="red";
-}
-
-//limpiar los input
-usernameInput.value="";
-passwordInput.value="";
-
-
+    if (nom && ocu) {
+        createCard(nom, ocu, col);
+        tarjetas.push({ nom, ocu, col }); // Añadimos al array de tarjetas
+        form.reset(); // Reiniciar el formulario después de agregar
+        console.log("Tarjeta creada", tarjetas);
+    } else {
+        alert("Complete los campos");
+    }
 });
 
+// Función para crear las tarjetas
+const createCard = (nom, ocu, col) => {
+    const card = document.createElement('div');
+    card.classList.add('card');
+    card.style.backgroundColor = col; // Usamos 'backgroundColor'
+    
+    // Establecer el tamaño máximo y márgenes de la tarjeta
+    card.style.width = "300px"; // Establecer un ancho fijo para la tarjeta
+    card.style.margin = "10px";  // Agregar márgenes entre tarjetas
+    card.style.padding = "15px"; // Agregar espacio interno a la tarjeta
+    card.style.borderRadius = "8px"; // Redondear las esquinas
+    card.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.1)"; // Añadir sombra ligera para mejorar la apariencia
 
+    // Crear contenido de la tarjeta
+    const cardContent = document.createElement('div');
+    cardContent.innerHTML = `<strong>${nom}</strong><br><span>${ocu}</span>`;
 
+    // Botón para eliminar la tarjeta
+    const deleteButton = document.createElement('button');
+    deleteButton.textContent = 'Eliminar';
+    
+    // Aquí pasamos la referencia correcta a la función removeCard
+    deleteButton.addEventListener('click', () => {
+        removeCard(nom); // Pasamos 'nom' correctamente
+        cardContainer.removeChild(card); // Eliminar la tarjeta de la vista
+    });
 
-const app = document.getElementById('app');
+    // Agregar el contenido y el botón a la tarjeta
+    card.append(cardContent, deleteButton);
 
-// Crea el botón que al hacer clic generará el contenedor
-const botonCrearContenedor = document.createElement('button');
-botonCrearContenedor.innerText = 'Crear Contenedor';
-botonCrearContenedor.style.padding = '10px 15px';
-botonCrearContenedor.style.backgroundColor = '#4CAF50';
-botonCrearContenedor.style.color = 'white';
-botonCrearContenedor.style.border = 'none';
-botonCrearContenedor.style.borderRadius = '5px';
-botonCrearContenedor.style.cursor = 'pointer';
-
-// Crea el botón que al hacer clic eliminará el contenedor
-const botonEliminarContenedor = document.createElement('button');
-botonEliminarContenedor.innerText = 'Eliminar Contenedor';
-botonEliminarContenedor.style.padding = '10px 15px';
-botonEliminarContenedor.style.backgroundColor = '#f44336';
-botonEliminarContenedor.style.color = 'white';
-botonEliminarContenedor.style.border = 'none';
-botonEliminarContenedor.style.borderRadius = '5px';
-botonEliminarContenedor.style.cursor = 'pointer';
-botonEliminarContenedor.style.marginLeft = '10px';
-botonEliminarContenedor.style.display = 'none'; // Oculto inicialmente
-
-// Función para crear el contenedor
-const crearContenedor = () => {
-    // Evita crear múltiples contenedores si ya existe uno
-    if (document.getElementById('contenedor-dinamico')) {
-        alert('El contenedor ya ha sido creado.');
-        return;
-    }
-
-    // Crea el contenedor con un ID específico para poder verificar si ya existe
-    const contenedorDinamico = document.createElement('div');
-    contenedorDinamico.id = 'contenedor-dinamico';
-    contenedorDinamico.style.width = '300px';
-    contenedorDinamico.style.height = '200px';
-    contenedorDinamico.style.backgroundColor = '#f4f4f9';
-    contenedorDinamico.style.border = '2px solid #ddd';
-    contenedorDinamico.style.borderRadius = '10px';
-    contenedorDinamico.style.display = 'flex';
-    contenedorDinamico.style.alignItems = 'center';
-    contenedorDinamico.style.justifyContent = 'center';
-    contenedorDinamico.style.marginTop = '20px';
-
-    // Texto dentro del contenedor para indicar que fue creado
-    const textoContenedor = document.createElement('p');
-    textoContenedor.innerText = 'Este es un contenedor dinámico';
-    textoContenedor.style.color = '#333';
-
-    // Añadir el texto al contenedor y el contenedor al DOM
-    contenedorDinamico.appendChild(textoContenedor);
-    app.appendChild(contenedorDinamico);
-
-    // Muestra el botón de eliminar
-    botonEliminarContenedor.style.display = 'inline-block';
+    // Agregar la tarjeta al contenedor de tarjetas
+    cardContainer.appendChild(card);
 };
 
-// Función para eliminar el contenedor
-const eliminarContenedor = () => {
-    const contenedorDinamico = document.getElementById('contenedor-dinamico');
-    if (contenedorDinamico) {
-        app.removeChild(contenedorDinamico);
-        botonEliminarContenedor.style.display = 'none'; // Oculta el botón de eliminar
-    } else {
-        alert('No hay contenedor para eliminar.');
-    }
+// Función para eliminar la tarjeta del array
+const removeCard = (name) => {
+    // Filtrar la tarjeta del array usando el 'name' de la tarjeta
+    tarjetas = tarjetas.filter(card => card.nom !== name);
+    console.log("Tarjetas después de eliminar:", tarjetas); // Verifica el contenido del array
 };
 
-// Asigna las funciones a los eventos de clic de los botones
-botonCrearContenedor.onclick = crearContenedor;
-botonEliminarContenedor.onclick = eliminarContenedor;
-
-// Agrega los botones al DOM
-app.appendChild(botonCrearContenedor);
-app.appendChild(botonEliminarContenedor);
-
-
-
-
-
-var ArrayInfo = [];
-
-var x = 2;
-
-var ctr = document.getElementById('tarjetas');
-
-for (var i = 0; i < x; ++i) {
-
-  var InfoDiv = document.createElement('div');
-  InfoDiv.id = 'Info_Div' + i;
-  InfoDiv.className = 'Info_Div';
-  InfoDiv.style.width = "100px";
-  InfoDiv.style.height = "30px";
-  InfoDiv.style.display = "inline-block";
-
-  ArrayInfo.push(InfoDiv);
-
-  ctr.appendChild(InfoDiv);
-}
-
-for (i = 0; i < x; ++i) {
-
-  ArrayInfo[i].innerHTML = usernameInput + i;
-}
+// Agregar el contenido al cuerpo
+document.body.appendChild(container);
+container.appendChild(form);
